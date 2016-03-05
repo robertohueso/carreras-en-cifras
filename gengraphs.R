@@ -1,16 +1,17 @@
 # Libreria de graficos
 library(ggplot2)
+rm ( list = ls() )
 
 # Suponemos utf8
 trabajando <- read.csv2(  "./listas/INE.csv", 
-                          col.names=c("Carreras",rep(c("Hombres","Mujeres"),3)),
+                          col.names=c("carreras",rep(c("hombres","mujeres"),3)),
                           header = FALSE, 
                           sep=",",
                           dec="."
                         )
                         
-matriculas <- read.csv2(  "./listas/201415matriculasgradoramas.csv",
-                          col.names = c("Ramas","Carreras","Hombres","Mujeres","Total"), 
+graduados <- read.csv2(  "./listas/201415matriculasgradoramas.csv",
+                          col.names = c("ramas","carreras","hombres","mujeres","Total"), 
                           header = TRUE, 
                           sep=","
                         )
@@ -21,22 +22,31 @@ trabajando <- na.omit( trabajando )
 
 
 
-
 # Number of columns of dataset
 n <- ncol(trabajando)
 
-trabajando.titul <- sapply( trabajando$Carreras, tolower )
-matriculas.titul <- sapply( matriculas$Carreras, tolower )
-# Asignaturas comunes a los dos datasets
-comunes <- intersect( trabajando.titul, matriculas.titul)
+trabajando.titul <- tolower( trabajando$carreras )
+graduados.titul <- tolower( graduados$carreras )
 
 
 
-trabajando <- trabajando[ order( trabajando$Carreras ), ]
-matriculas <- matriculas[ order( matriculas$Carreras ), ]
+# Deja los dos datasets con solo las asignaturas comunes
+comunes <- intersect( trabajando.titul, graduados.titul)
+trabajando <- trabajando[ which( is.element( 
+                                            tolower( trabajando$carreras ),
+                                            comunes 
+                                            )
+                                )
+                        , ]
+graduados <- graduados[ which( is.element( 
+                                          tolower( graduados$carreras ), 
+                                          comunes 
+                                          ) 
+                               ) 
+                        , ]
+trabajando <- trabajando[ order( trabajando$carreras ), ]
+graduados <- graduados[ order( graduados$carreras ), ]
 
 
-
-trabajando <- trabajando[,c(1,n-1,n)]
-matriculas<- matriculas[ c("Carreras", "Hombres", "Mujeres") ]
-
+data <- data.frame( comunes, trabajando$hombres/trabajando$mujeres, graduados$hombres/graduados$mujeres )
+colnames(data) <- c("titulacion", "h/m.trabajando", "h/m.graduados" )
