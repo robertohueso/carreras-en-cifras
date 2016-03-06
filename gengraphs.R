@@ -3,6 +3,14 @@ library(ggplot2)
 rm ( list = ls() )
 
 # Suponemos utf8
+con <- file( "./listas/INE.csv",
+                    open="r"
+                    )
+trabajando <- readLines(con)
+trabajando
+
+
+
 trabajando <- read.csv2(  "./listas/INE.csv", 
                           col.names=c("carreras",rep(c("hombres","mujeres"),3)),
                           header = FALSE, 
@@ -49,4 +57,7 @@ graduados <- graduados[ order( graduados$carreras ), ]
 
 
 data <- data.frame( comunes, trabajando$hombres/trabajando$mujeres, graduados$hombres/graduados$mujeres )
-colnames(data) <- c("titulacion", "h/m.trabajando", "h/m.graduados" )
+colnames(data) <- c("titulacion", "ratio.trabajando", "ratio.graduados" )
+
+
+ggplot(data) + geom_point(data=data, aes(x=ratio.graduados,y=ratio.trabajando))
