@@ -55,11 +55,12 @@ data <- data.frame( comunes,
 colnames(data) <- c("titulacion", "ratio.trabajando", "ratio.graduados" )
 
 
-graph <-  ggplot(data,aes( x=ratio.graduados,y=ratio.trabajando, colour=titulacion, size=4) ) + 
+graph <-  ggplot(data,aes( x=ratio.graduados,y=ratio.trabajando, colour=titulacion, size=8) ) + 
           xlab("Ratio hombres/mujeres graduados") +
           ylab("Ratio hombres/mujeres trabajando") +
           theme(legend.position="none")+
           geom_point()+
-          geom_abline(intercept=0, slope=1, colour="red")
+          geom_abline(intercept=0, slope=1, colour="grey",size=1.2, linetype=2)
           
 graph
+ggsave(filename="ratios.png", plot=graph, scale=0.8)
