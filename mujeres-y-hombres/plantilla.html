@@ -11,7 +11,10 @@
 
 body {
 	text-align: center;
-	background-color: #ffffff;
+    background-color: #ffffff;
+	background-image: url(http://sl.ugr.es/mescudougr.gif);
+	background-repeat: no-repeat;
+	background-position: top right;
 	margin: 0;
 	padding: 0;
 	color: #000000;
@@ -31,8 +34,8 @@ h1{
     background-color: #000000;
 }
 
-.hombres {color: #0066CC;}
-.mujeres {color: #CC66FF;}
+.hombres {color: #0066CC; text-decoration: none}
+.mujeres {color: #CC66FF; text-decoration: none}
 
 
 </style>
@@ -41,6 +44,10 @@ h1{
 <body>
 <div id="contenedor">
 <h1>[REPLACE_TITULO]</h1>
+<div>[REPLACE_MENU]</div>
+
+<p>Cada símbolo representa un <span class="hombres">alumno</span> o <span class="mujeres">alumna</span> matriculados en [REPLACE_TITULO] en la Universidad de Granada<p>
+
 <div id="caja">
 [REPLACE_CONTENIDO]
 </div>
