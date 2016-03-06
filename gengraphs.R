@@ -3,43 +3,32 @@ library(ggplot2)
 rm ( list = ls() )
 
 # Suponemos utf8
-con <- file( "./listas/INE.csv",
-                    open="r"
-                    )
-trabajando <- readLines(con)
-trabajando
-
-
-
 trabajando <- read.csv2(  "./listas/INE.csv", 
                           col.names=c("carreras",rep(c("hombres","mujeres"),3)),
                           header = FALSE, 
                           sep=",",
-                          dec="."
-                        )
-                        
+                          dec=".",
+                          skip=1,
+                          stringsAsFactors = FALSE
+                        )               
+
 graduados <- read.csv2(  "./listas/201415matriculasgradoramas.csv",
                           col.names = c("ramas","carreras","hombres","mujeres","Total"), 
                           header = TRUE, 
-                          sep=","
+                          sep=",",
+                          stringsAsFactors = FALSE
                         )
 
-
-# Limpiamos un poco el dataset
+# Limpiamos un poco los datasets
 trabajando <- na.omit( trabajando )
-
-
-
-# Number of columns of dataset
-n <- ncol(trabajando)
-
-trabajando.titul <- tolower( trabajando$carreras )
-graduados.titul <- tolower( graduados$carreras )
-
+graduados <- na.omit( graduados )
 
 
 # Deja los dos datasets con solo las asignaturas comunes
+trabajando.titul <- tolower( trabajando$carreras )
+graduados.titul <- tolower( graduados$carreras )
 comunes <- intersect( trabajando.titul, graduados.titul)
+
 trabajando <- trabajando[ which( is.element( 
                                             tolower( trabajando$carreras ),
                                             comunes 
@@ -54,9 +43,15 @@ graduados <- graduados[ which( is.element(
                         , ]
 trabajando <- trabajando[ order( trabajando$carreras ), ]
 graduados <- graduados[ order( graduados$carreras ), ]
+  
 
 
-data <- data.frame( comunes, trabajando$hombres/trabajando$mujeres, graduados$hombres/graduados$mujeres )
+
+# data frame para representar ratios
+data <- data.frame( comunes, 
+                    as.numeric(trabajando$hombres) / as.numeric(trabajando$mujeres), 
+                    as.numeric(graduados$hombres) / as.numeric(graduados$mujeres )
+                  )
 colnames(data) <- c("titulacion", "ratio.trabajando", "ratio.graduados" )
 
 
