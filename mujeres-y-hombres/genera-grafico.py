@@ -32,7 +32,7 @@ with open(archivo_plantilla, 'r') as plantilla:
     pagina_completa = plantilla.read()
 
 with open(archivo_dibujitos, 'r') as dibujitos:
-    lista_dibujitos = csv.reader(dibujitos,delimiter='\t')
+    lista_dibujitos = csv.reader(dibujitos)
 
     # Nos saltamos la primera línea
     lista_dibujitos.next()
@@ -40,6 +40,7 @@ with open(archivo_dibujitos, 'r') as dibujitos:
     for fila in lista_dibujitos:
         try:
             icono[fila[0]] = fila[1]
+            print fila[1]
         except IndexError:
             pass
 
