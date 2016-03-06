@@ -43,14 +43,14 @@ with open(archivo_datos, 'r') as datos:
     lista_datos.next()
     for fila in lista_datos:
         try:
-            churro_hombres = ("<a href='" + crea_url(fila[1]) + "' class='hombres' title='" + fila[1] + " (hombres)'>" + icono[fila[1]] + "</span> ") * int(fila[2])
-            churro_mujeres = ("<a href='" + crea_url(fila[1]) + "' class='mujeres' title='" + fila[1] + " (mujeres)'>" + icono[fila[1]] + "</span> ") * int(fila[3])
+            churro_hombres = ("<a href='" + crea_url(fila[1]) + "' class='hombres' title='" + fila[1] + " (hombres)'>" + icono[fila[1]] + "</a> ") * int(fila[2])
+            churro_mujeres = ("<a href='" + crea_url(fila[1]) + "' class='mujeres' title='" + fila[1] + " (mujeres)'>" + icono[fila[1]] + "</a> ") * int(fila[3])
 
             dicc_churros[fila[1]] = churro_hombres + churro_mujeres
 
         except KeyError:
-            churro_hombres = ("<a href='" + crea_url(fila[1]) + "' class='hombres' title='" + fila[1] + " (hombres)'>X</span> ") * int(fila[2])
-            churro_mujeres = ("<a href='" + crea_url(fila[1]) + "' class='mujeres' title='" + fila[1] + " (mujeres)'>X</span> ") * int(fila[3])
+            churro_hombres = ("<a href='" + crea_url(fila[1]) + "' class='hombres' title='" + fila[1] + " (hombres)'>X</a> ") * int(fila[2])
+            churro_mujeres = ("<a href='" + crea_url(fila[1]) + "' class='mujeres' title='" + fila[1] + " (mujeres)'>X</a> ") * int(fila[3])
 
             dicc_churros[fila[1]] = churro_hombres + churro_mujeres
 
@@ -72,7 +72,7 @@ for pag in dicc_churros:
 
 with open(archivo_salida, 'w') as pagina:
 
-    contenido = contenido.replace("[REPLACE_TITULO]", "Principal")
+    pagina_completa = pagina_completa.replace("[REPLACE_TITULO]", "Todas las carreras")
     pagina_completa = pagina_completa.replace("[REPLACE_CONTENIDO]", churro_commpleto)
 
     pagina.write(pagina_completa)
