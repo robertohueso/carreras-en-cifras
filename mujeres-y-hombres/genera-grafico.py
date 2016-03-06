@@ -72,7 +72,7 @@ for pag in dicc_churros:
 
 with open(archivo_salida, 'w') as pagina:
 
-    contenido = contenido.replace("[REPLACE_TITULO]", "Principal")
+    pagina_completa = pagina_completa.replace("[REPLACE_TITULO]", "Todas las carreras")
     pagina_completa = pagina_completa.replace("[REPLACE_CONTENIDO]", churro_commpleto)
 
     pagina.write(pagina_completa)
