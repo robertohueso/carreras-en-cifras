@@ -16,9 +16,16 @@ dicc_churros = {}
 def crea_url(nombre):
     return re.sub(r'[^A-Za-z0-9]', '', nombre) + ".html"
 
+def crea_combo(diccionario):
 
+    combo = '<select onchange="location.href=this.options[this.selectedIndex].value" name="carreras" size="1"><option value="#" selected>ELIJA UNA</option><option value="index.html">Todas</option>'
 
+    for pag in diccionario:
+        combo = combo + '<option value="' + crea_url(pag) + '">' + pag + '</option>'
 
+    combo = combo + '</select>'
+
+    return combo
 
 
 with open(archivo_plantilla, 'r') as plantilla:
@@ -57,6 +64,10 @@ with open(archivo_datos, 'r') as datos:
         churro_commpleto = churro_commpleto + churro_hombres + churro_mujeres
 
 
+
+seleccion = crea_combo(dicc_churros)
+
+
 for pag in dicc_churros:
 
     nombre_pagina = "../" + crea_url(pag)
@@ -64,6 +75,7 @@ for pag in dicc_churros:
     contenido = pagina_completa
 
     contenido = contenido.replace("[REPLACE_TITULO]", pag)
+    contenido = contenido.replace("[REPLACE_MENU]", seleccion)
     contenido = contenido.replace("[REPLACE_CONTENIDO]", dicc_churros[pag])
 
     with open(nombre_pagina, 'w') as pagina:
@@ -73,6 +85,7 @@ for pag in dicc_churros:
 with open(archivo_salida, 'w') as pagina:
 
     pagina_completa = pagina_completa.replace("[REPLACE_TITULO]", "Todas las carreras")
+    pagina_completa = pagina_completa.replace("[REPLACE_MENU]", seleccion)
     pagina_completa = pagina_completa.replace("[REPLACE_CONTENIDO]", churro_commpleto)
 
     pagina.write(pagina_completa)
