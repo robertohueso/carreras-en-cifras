@@ -40,7 +40,6 @@ with open(archivo_dibujitos, 'r') as dibujitos:
     for fila in lista_dibujitos:
         try:
             icono[fila[0]] = fila[1]
-            print fila[1]
         except IndexError:
             pass
 
@@ -87,7 +86,7 @@ with open(archivo_salida, 'w') as pagina:
 
     pagina_completa = pagina_completa.replace("[REPLACE_TITULO]", "Todas las carreras")
     pagina_completa = pagina_completa.replace("[REPLACE_MENU]", seleccion)
-    pagina_completa = pagina_completa.replace("[REPLACE_CONTENIDO]", churro_commpleto)
+#    pagina_completa = pagina_completa.replace("[REPLACE_CONTENIDO]", churro_commpleto)
 
     pagina.write(pagina_completa)
 
