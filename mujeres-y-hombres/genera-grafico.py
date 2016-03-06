@@ -3,7 +3,7 @@
 
 import csv, re
 
-archivo_dibujitos = "../simbolos/simbolos_UGR.csv"
+archivo_dibujitos = "../simbolos/UGRcompleta.csv"
 archivo_datos = "../listas/201415matriculasgradoramas.csv"
 archivo_plantilla = "plantilla.html"
 archivo_salida = "../index.html"
