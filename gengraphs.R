@@ -55,4 +55,8 @@ data <- data.frame( comunes,
 colnames(data) <- c("titulacion", "ratio.trabajando", "ratio.graduados" )
 
 
-ggplot(data) + geom_point(data=data, aes(x=ratio.graduados,y=ratio.trabajando))
+graph <-  ggplot(data) + 
+          geom_point(data=data, aes(x=ratio.graduados,y=ratio.trabajando)) +
+          xlab("Ratio hombres/mujeres graduados") +
+          ylab("Ratio hombres/mujeres trabajando")
+graph
